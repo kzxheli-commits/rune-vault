@@ -27,6 +27,8 @@ html, body {
   background: radial-gradient(ellipse at 50% 30%, rgba(10, 30, 55, 0.85), rgba(3, 5, 10, 0.96));
   z-index: 40;
 }
+/* display:flex 会盖过 [hidden] 的 UA 样式，这里显式恢复 */
+.overlay[hidden] { display: none; }
 
 .panel {
   width: min(460px, 92vw);
