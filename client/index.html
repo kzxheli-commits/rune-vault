@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>符文密室 · Rune Vault</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.min.js" } }
+  </script>
+</head>
+<body>
+  <canvas id="game-canvas"></canvas>
+
+  <!-- 大厅 -->
+  <div id="screen-lobby" class="overlay">
+    <div class="panel">
+      <h1 class="logo">符文密室<span>RUNE&nbsp;VAULT</span></h1>
+      <p class="tagline">3D 多人演绎推理 · 私有线索 · 干扰者潜伏其中</p>
+
+      <div id="lobby-join">
+        <input id="inp-name" maxlength="16" placeholder="你的昵称" autocomplete="off" />
+        <button id="btn-create" class="btn primary">创建房间</button>
+        <div class="divider">加入已有房间</div>
+        <div class="row">
+          <input id="inp-code" maxlength="4" placeholder="房间码" autocomplete="off" />
+          <button id="btn-join" class="btn">加入</button>
+        </div>
+      </div>
+
+      <div id="lobby-room" hidden>
+        <div class="room-code">房间码 <b id="lobby-code">----</b></div>
+        <ul id="lobby-players"></ul>
+        <button id="btn-start" class="btn primary" hidden>开始对局（需 ≥2 人）</button>
+        <p id="lobby-tip" class="tip">等待玩家加入…</p>
+      </div>
+
+      <div id="lobby-error" class="error" hidden></div>
+
+      <details class="rules">
+        <summary>玩法说明</summary>
+        <ol>
+          <li>大厅点击「创建房间」，把房间码发给朋友；或输入房间码加入。</li>
+          <li>每局 90 秒。符文柱围绕竞技场排列，走到符文柱前按 <b>E</b> 刻印，到中央祭坛按 <b>E</b> 验证三符文序列。</li>
+          <li><b>解谜者</b>：你只拿到私有线索（转述给队友才是制胜关键），凑出正确序列得分。</li>
+          <li><b>干扰者</b>（3 人以上出现）：你知道完整答案，任务是误导大家拖到超时。</li>
+          <li>答错会被公开并冷却 5 秒——错误答案本身就是信息。先到 6 分者赢得整场比赛。</li>
+        </ol>
+      </details>
+    </div>
+  </div>
+
+  <!-- 游戏 HUD -->
+  <div id="hud" hidden>
+    <div id="topbar">
+      <div id="timer"><div id="timer-fill"></div><span id="timer-text">90</span></div>
+      <div id="round-info">第 1 局</div>
+    </div>
+
+    <div id="role-card">
+      <div id="role-title">解谜者</div>
+      <ul id="hints"></ul>
+    </div>
+
+    <div id="scoreboard"></div>
+    <div id="feed"></div>
+
+    <div id="crosshair"></div>
+    <div id="prompt" hidden></div>
+
+    <div id="buf-bar">
+      <span class="buf-label">刻印槽</span>
+      <div class="buf-slot" data-i="0"></div>
+      <div class="buf-slot" data-i="1"></div>
+      <div class="buf-slot" data-i="2"></div>
+      <button id="btn-submit" class="btn small">验证 (E @ 祭坛)</button>
+    </div>
+
+    <div id="lock-badge" hidden></div>
+  </div>
+
+  <!-- 聊天 -->
+  <div id="chat">
+    <div id="chat-log"></div>
+    <input id="chat-input" maxlength="200" placeholder="按 Enter 聊天…" hidden />
+  </div>
+
+  <!-- 局末 / 比赛结束 -->
+  <div id="overlay" class="overlay" hidden>
+    <div class="panel narrow">
+      <h2 id="overlay-title">破解成功</h2>
+      <p id="overlay-sub"></p>
+      <div id="overlay-answer" class="answer-row"></div>
+      <ul id="overlay-scores" class="score-list"></ul>
+      <p id="overlay-next" class="tip"></p>
+      <button id="btn-rematch" class="btn primary" hidden>再来一局</button>
+    </div>
+  </div>
+
+  <div id="toast" hidden></div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

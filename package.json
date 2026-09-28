@@ -1,0 +1,14 @@
+{
+  "name": "rune-vault",
+  "version": "1.0.0",
+  "description": "符文密室 Rune Vault — 3D 多人演绎推理解谜游戏",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node scripts/test-all.mjs"
+  },
+  "dependencies": {
+    "ws": "^8.18.0",
+    "three": "^0.170.0"
+  }
+}
